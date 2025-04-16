@@ -23,6 +23,15 @@ class Cars extends ResourceController
         } else {
             return $this->failNotFound('Car not found');
         }
+
+        $carTypeConfig = new \Config\CarTypeConfig();
+
+        if (isset($data['car_type_id']) && array_key_exists($data['car_type_id'], $carTypeConfig->carNames)) {
+            $data['car_type'] = $carTypeConfig->carNames[$data['car_type_id']];
+        } else {
+            $data['car_type'] = 'Unknown';
+        }
+        return $this->respond($data);
     }
     public function create()
     {
