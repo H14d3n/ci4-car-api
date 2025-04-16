@@ -35,19 +35,30 @@ class Cars extends ResourceController
         return $this->respondCreated($data, 'Car successfully created');
     }
     public function update($id = null)
-    {
-        $data = $this->request->getJSON(true);
+{
+    $data = $this->request->getJSON(true);
 
-        if (!$this->model->find($id)) {
-            return $this->failNotFound("Could not find car with id $id");
-        }
-
-        if (!$this->model->update($id, $data)) {
-            return $this->failValidationErrors($this->model->errors());
-        }
-
-        return $this->respondUpdated($data, 'Car successfully updated');
+    $existing = $this->model->find($id);
+    if (! $existing) {
+        return $this->failNotFound("Could not find car with id $id");
     }
+
+    $validationRules = [
+        'make'  => 'permit_empty|string|max_length[100]',
+        'model' => 'permit_empty|string|max_length[100]',
+        'year'  => 'permit_empty|numeric|greater_than[1900]|less_than_equal_to[' . date('Y') . ']',
+    ];
+
+    if (! $this->validate($validationRules)) {
+        return $this->failValidationErrors($this->validator->getErrors());
+    }
+
+    if (! $this->model->update($id, $data)) {
+        return $this->failValidationErrors($this->model->errors());
+    }
+
+    return $this->respondUpdated($data, 'Car successfully updated');
+}
 
     public function delete($id = null)
     {
