@@ -12,7 +12,15 @@ class CarModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = false;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'car_brand',
+        'car_name',
+        'color_hex',
+        'comments',
+        'car_type_id',
+        'created_at',
+        'updated_at'
+    ];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

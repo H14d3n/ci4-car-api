@@ -15,7 +15,7 @@ class Cars extends Seeder
             ['car_name' => 'Audi RS3']
         ];
 
-        $CarModel = model('App\Models\CarModel');
+        $CarModel = new \App\Models\CarModel();
         
         foreach ($carNames as $car) {
             $CarModel->insert([
@@ -23,6 +23,7 @@ class Cars extends Seeder
                 'car_name' => $car['car_name'],
                 'color_hex' => 'FF0000',
                 'comments' => 'This is a comment',
+                'car_type_id' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ]);
