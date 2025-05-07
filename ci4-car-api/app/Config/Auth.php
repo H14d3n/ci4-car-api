@@ -143,7 +143,7 @@ class Auth extends ShieldAuth
         'session',
         'tokens',
         'hmac',
-        // 'jwt',
+        'jwt'
     ];
 
     /**
