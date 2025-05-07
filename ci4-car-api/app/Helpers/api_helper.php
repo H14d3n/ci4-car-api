@@ -10,7 +10,7 @@ use CodeIgniter\HTTP\RequestInterface;
  * Either as $_GET parameter or as HTTP Header
  *
  * @param RequestInterface $request
- * @return mixed
+ * @return mixed   
  */
 function get_api_key_from_request(RequestInterface $request) {
 
